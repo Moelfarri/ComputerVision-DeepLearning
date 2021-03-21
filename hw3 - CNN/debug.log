@@ -1,0 +1,3 @@
+[0221/192358.813:ERROR:file_io.cc(135)] WriteFile: Det er ikke nok plass på disk(ett)en. (0x70)
+[0221/192358.814:ERROR:filesystem_win.cc(148)] DeleteFile C:\Users\Mohammed Elfarri\AppData\Local\Google\Chrome\User Data\Crashpad\reports\fd56f16a-de41-4c18-ae0b-6619d8faab55.dmp: Prosessen får ikke tilgang til filen fordi den brukes av en annen prosess. (0x20)
+[0221/192404.198:ERROR:registration_protocol_win.cc(130)] TransactNamedPipe: Datakanalen er avsluttet. (0x6D)
