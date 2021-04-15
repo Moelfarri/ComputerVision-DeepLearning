@@ -3,7 +3,7 @@ MODEL:
     BACKBONE:
         NAME: 'basic'
         PRETRAINED: False
-        OUT_CHANNELS: [128, 256, 128, 128, 64, 64]
+        OUT_CHANNELS: [256, 512, 256, 256, 128, 128]
         INPUT_CHANNELS: 3
 INPUT:
     IMAGE_SIZE: [300, 300]
@@ -11,9 +11,9 @@ DATASETS:
     TRAIN: ("rdd2020_train",)
     TEST: ("rdd2020_val", )
 SOLVER:
-    MAX_ITER: 120000
+    MAX_ITER: 10000
     GAMMA: 0.1
     BATCH_SIZE: 16
-    LR: 1e-3
+    LR: 5e-4
 OUTPUT_DIR: 'outputs/rdd2020'
 DATASET_DIR: "/work/datasets"

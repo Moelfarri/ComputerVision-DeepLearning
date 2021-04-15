@@ -1,0 +1,23 @@
+MODEL:
+    NUM_CLASSES: 5
+    BACKBONE:
+        NAME: 'ResNet'
+        PRETRAINED: False
+        OUT_CHANNELS: [128, 256, 512, 256, 128, 128]  #[256, 512, 512]
+        INPUT_CHANNELS: 3   
+    PRIORS:
+        FEATURE_MAPS:  [[38, 38], [19, 19], [10, 10],[5,5],[3,3],[1,1]]  #[[38, 38], [19, 19], [10, 10]]
+INPUT:
+    IMAGE_SIZE: [300, 300]
+    
+
+DATASETS:
+    TRAIN: ("rdd2020_train",)
+    TEST: ("rdd2020_val", )
+SOLVER:
+    MAX_ITER: 10000
+    GAMMA: 0.1
+    BATCH_SIZE: 16
+    LR: 5e-4
+OUTPUT_DIR: 'outputs/rdd2020/ResNet'
+DATASET_DIR: "/work/datasets"
