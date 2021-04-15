@@ -1,0 +1,13 @@
+1. Endre på detector.py for å ha filen og modelen din fra backbone importert
+og returnert
+
+
+2. Sørg for at output og priors stemmer overens med din Transfer learning model
+(sjekk testing.pynb - for hvordan gå fram)
+
+3. de resterende lagene må også stemme overens med din modell i forhold til
+resten av resnet lagene
+
+4. Pass på at outputs passer med resnet outputs
+
+
