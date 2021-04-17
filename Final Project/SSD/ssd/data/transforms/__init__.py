@@ -12,7 +12,7 @@ def build_transforms(cfg, is_train=True):
             SubtractMeans(cfg.INPUT.PIXEL_MEAN, cfg.INPUT.PIXEL_STD),
             #Transforms:
             #RandomSampleCrop(), 
-            RandomMirror(),
+            #RandomMirror(),
             ###
             ToTensor(),
         ]
