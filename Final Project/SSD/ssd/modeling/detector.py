@@ -2,6 +2,8 @@ from torch import nn
 from ssd.modeling.backbone.vgg import VGG
 from ssd.modeling.backbone.basic import BasicModel
 from ssd.modeling.backbone.ResNet import ResNet
+from ssd.modeling.backbone.MobileNet import MobileNet
+from ssd.modeling.backbone.ResNet50 import ResNet50
 from ssd.modeling.box_head.box_head import SSDBoxHead
 from ssd.utils.model_zoo import load_state_dict_from_url
 from ssd import torch_utils
@@ -34,6 +36,15 @@ def build_backbone(cfg):
     if backbone_name == "basic":
         model = BasicModel(cfg)
         return model
+    
+    if backbone_name == "MobileNet":
+        model = MobileNet(cfg)
+        return model
+    
+    if backbone_name == "ResNet50":
+        model = ResNet50(cfg)
+        return model
+    
     
     if backbone_name == "ResNet":
         model = ResNet(cfg) 
