@@ -27,88 +27,30 @@ class ResNet50(torch.nn.Module):
         self.model = nn.Sequential(*(list(self.resnet.children()))[:-2])
         
         
-        self.conv1 = self.model[6]
+        self.conv1 = self.model[5]
         
-        self.conv2 = self.model[7]
+        self.conv2 = self.model[6]
         
-        self.conv3 = nn.Sequential(
-            nn.ReLU(),
-            nn.BatchNorm2d(output_channels[1]),
-            nn.Conv2d(
-                in_channels=output_channels[1],
-                out_channels=512,
-                kernel_size=3,
-                stride=1,
-                padding=1),
-            nn.ReLU(),
-            nn.BatchNorm2d(512),
-            nn.Conv2d(
-                in_channels=512,
-                out_channels=output_channels[2],
-                kernel_size=3,
-                stride=2,
-                padding=1),
-        )
-
-
+        self.conv3 = self.model[7]
+        
         self.conv4 = nn.Sequential(
             nn.ReLU(),
             nn.BatchNorm2d(output_channels[2]),
             nn.Conv2d(
                 in_channels=output_channels[2],
-                out_channels=512,
+                out_channels=64,
                 kernel_size=3,
                 stride=1,
                 padding=1),
             nn.ReLU(),
-            nn.BatchNorm2d(512),
+            nn.BatchNorm2d(64),
             nn.Conv2d(
-                in_channels=512,
+                in_channels=64,
                 out_channels=output_channels[3],
-                kernel_size=3,
-                stride=2,
-                padding=1),
-        )
-
-
-        self.conv5 =  nn.Sequential(
-            nn.ReLU(),
-            nn.BatchNorm2d(output_channels[3]),
-            nn.Conv2d(
-                in_channels=output_channels[3],
-                out_channels=512,
-                kernel_size=3,
-                stride=1,
-                padding=1),
-            nn.ReLU(),
-            nn.BatchNorm2d(512),
-            nn.Conv2d(
-                in_channels=512,
-                out_channels=output_channels[4],
-                kernel_size=3,
-                stride=2,
-                padding=1),
-        )
-
-        self.conv6 = nn.Sequential(
-            nn.ReLU(),
-            nn.BatchNorm2d(output_channels[4]),
-            nn.Conv2d(
-                in_channels=output_channels[4],
-                out_channels=512,
-                kernel_size=3,
-                stride=1,
-                padding=1),
-            nn.ReLU(),
-            nn.BatchNorm2d(512),
-            nn.Conv2d(
-                in_channels=512,
-                out_channels=output_channels[5],
                 kernel_size=3,
                 stride=1,
                 padding=0)
-        )
-            
+         )
        
 
     def forward(self, x):
@@ -124,10 +66,10 @@ class ResNet50(torch.nn.Module):
         where out_features[0] should have the shape:
             shape(-1, output_channels[0], 38, 38),
         """
-        #ResNet 50 first layers: 
-        x = self.model[0:3](x) #skip first maxpool
+        #ResNet50 - first layers: 
+        x = self.model[0:4](x)  #x = self.model[0:3](x) #skip maxpool and put it in later
         x = self.model[4](x)
-        x = self.model[5](x)
+        #x = self.model[3](x)
 
         #SSD LAYERS:
         out_features = []
@@ -139,10 +81,7 @@ class ResNet50(torch.nn.Module):
         out_features.append(x)
         x = self.conv4(x)
         out_features.append(x)
-        x = self.conv5(x)
-        out_features.append(x)
-        x = self.conv6(x)
-        out_features.append(x)
+        
 
         
 
