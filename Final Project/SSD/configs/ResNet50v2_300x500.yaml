@@ -1,0 +1,34 @@
+MODEL:
+    NUM_CLASSES: 5
+    BACKBONE:
+        NAME: 'ResNet50_v2'
+        PRETRAINED: True
+        OUT_CHANNELS: [256, 512,1024, 2048, 256]
+        INPUT_CHANNELS: 3   
+    PRIORS:
+        FEATURE_MAPS:  [[38, 63], [19, 32], [10, 16], [5, 8],[1,1]]
+        STRIDES:   [[8, 8], [16, 16], [30, 31], [38, 36],[300,500]] #300/38 500/63, 300/19 500/32, etc..
+        MIN_SIZES: [[30, 50], [60, 100], [111, 185], [162, 270],[213, 355]]
+        MAX_SIZES: [[60, 100], [111, 185], [162, 270], [213, 355],[264, 440]]
+        
+        #hOW TO rescale min and max to fit image resolution:
+        #[[0.1X, 0.1Y], [0.2X, 0.2Y], [0.37X, 0.37Y], [0.54X, 0.54Y], [0.71X, 0.71Y], [0.88X, 0.88Y]]
+        #[[0.2X, 0.2Y], [0.37X, 0.37Y], [0.54X, 0.54Y], [0.71X, 0.71Y], [0.88X, 0.88Y], [1.05X,1.05Y]]
+INPUT:
+    IMAGE_SIZE: [300, 500]  #HeightxWidth 
+    PIXEL_STD: [0.229, 0.224, 0.225]  #1/255 - whilst STD is between [0,1] for some reason
+    PIXEL_MEAN: [123.675, 116.28, 103.53] #has to be given in [0,255]
+    
+
+DATASETS:
+    TRAIN: ("rdd2020_train",)
+    TEST: ("rdd2020_val", )
+SOLVER:
+    MAX_ITER: 40000
+    GAMMA: 0.1
+    BATCH_SIZE: 16 
+    LR: 5e-4
+OUTPUT_DIR: 'outputs/rdd2020/ResNet50v2_300x500'
+EVAL_STEP: 2500
+MODEL_SAVE_STEP: 2500
+DATASET_DIR: "/work/datasets"
