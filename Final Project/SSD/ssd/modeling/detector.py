@@ -5,6 +5,8 @@ from ssd.modeling.backbone.ResNet import ResNet
 from ssd.modeling.backbone.MobileNet import MobileNet
 from ssd.modeling.backbone.ResNet50 import ResNet50
 from ssd.modeling.backbone.ResNet50_v2 import ResNet50_v2
+from ssd.modeling.backbone.Inception import Inception
+from ssd.modeling.backbone.ResNext import ResNext
 from ssd.modeling.box_head.box_head import SSDBoxHead
 from ssd.utils.model_zoo import load_state_dict_from_url
 from ssd import torch_utils
@@ -34,6 +36,11 @@ class SSDDetector(nn.Module):
 
 def build_backbone(cfg):
     backbone_name = cfg.MODEL.BACKBONE.NAME
+    
+    if backbone_name == "Inception":
+        model = Inception(cfg)
+        return model
+    
     if backbone_name == "basic":
         model = BasicModel(cfg)
         return model
@@ -53,6 +60,10 @@ def build_backbone(cfg):
     
     if backbone_name == "ResNet50_v2":
         model = ResNet50_v2(cfg)
+        return model
+    
+    if backbone_name == "ResNext":
+        model = ResNext(cfg)
         return model
     
     if backbone_name == "vgg":
